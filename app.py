@@ -6,6 +6,9 @@ import pymongo
 import pandas as pd
 import os
 import csv
+from bson.json_util import dumps
+
+
 
 # create instance of Flask app
 
@@ -20,7 +23,7 @@ conn = "mongodb://localhost:27017/tech_app"
 client = pymongo.MongoClient(conn)
 db = client.zipDB
 #db.zipDB.drop()
-all_data = "zipcode_sf_zri_2018.csv"
+all_data = "Yearly_Top3_Tech_Loc_ZRI_Hist.csv"
 all_data_pd = pd.read_csv(all_data)
 zipData = json.loads(all_data_pd.to_json(orient='records'))
 db.zipColl.insert_many(zipData)
@@ -31,11 +34,10 @@ db.zipColl.insert_many(zipData)
 def home():
     return render_template("heatmap.html")
     
-@app.route("/zipjson")
-def samples():
-    filterData = list(db.zipDB.find())
-#     return jsonify([zip for zip in filterData])
-    return filterData
+@app.route("/<year>")
+def samples(year):
+    filterData = db.zipColl.find({"Year": int(year)})
+    return dumps(filterData)
                                 
 if __name__ == "__main__":
     app.run(debug = True)
