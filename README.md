@@ -1,4 +1,6 @@
-# Project_2 Power Point Slides
+## Leaflet App Demonstrating Heat Map Median Rents and their Projections
+![text](./Project_2_slides/leaflet_app.png)
+## Presentation
 ![text](./Project_2_slides/Slide1.JPG)
 ![text](./Project_2_slides/Slide2.JPG)
 ![text](./Project_2_slides/Slide3.JPG)
